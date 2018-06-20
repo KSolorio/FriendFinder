@@ -1,6 +1,4 @@
 # Welcome To FriendFinder 
-### Where we find you your perfect FRIEND! :D
-
 ![FriendFinder banner](./app/images/banner.png)
 
 Node packages used:
@@ -25,6 +23,6 @@ After completing you will be matched with the best matched friend
 
 ![modal](./app/images/modal.png)
 
-You will then be added to the friends array which can be viewed at `/api/friends' or by clicking the link
+You will then be added to the friends array which can be viewed at `/api/friends` or by clicking the link
 
 ![buttons](./app/images/buttons.png)
