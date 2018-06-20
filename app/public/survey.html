@@ -4,12 +4,13 @@
   <meta charset="utf-8" />
   <title>Friend Finder</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-  crossorigin="anonymous">
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+
+
 </head>
 
 <body>
@@ -24,13 +25,11 @@
       </div>
       <div class="panel-body">
         <strong>Name (Required)</strong>
-        <label class="active" for="name"></label>
-        <input type="text" class="validate" id="friendName" required>
+        <input type="text" name="" class="form-control" id="name" required>
 <br>
 <br>
         <strong>Link to Photo Image (Required)</strong>
-        <label class="active" for="name"></label>
-        <input type="text" class="validate" id="photoLink" required>
+        <input type="text" name="" class="form-control" id="photo" required>
       </div>
     </div>
   </div>
@@ -40,20 +39,22 @@
     <h5>Your mind is always buzzing with unexplored ideas and plans.</h5> 
       <select data-placeholder="" class="answerChosen" id="q1">
         <option value=""></option>
-        <option value="1">1. Strongly Agree</option>
-        <option value="2">2.</option>
-        <option value="3">3.</option>
-        <option value="4">4. Strongly Disagree</option>
+        <option value="1">1 Strongly Agree</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="4">5 Strongly Disagree</option>
       </select>       
       <br>
       <h4>Question 2</h4>
       <h5>Generally speaking, you rely more on your experience than your imagination.</h5> 
         <select data-placeholder="" class="answerChosen" id="q2">
           <option value=""></option>
-          <option value="1">1. Strongly Agree</option>
-          <option value="2">2.</option>
-          <option value="3">3.</option>
-          <option value="4">4. Strongly Disagree</option>
+          <option value="1">1 Strongly Agree</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="4">5 Strongly Disagree</option>
         </select>
         <br>
         <h4>Question 3</h4>
@@ -137,58 +138,99 @@
           </select>
 
       <br>
-
-      <button type="submit" class="btn btn/primary btn/lg btn/block" id="submitButton">Submit</button>
+    <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>Submit</button>
     </div>
-    <div id="modalone" class = "modal">
-      <div class="modal-content">
-        <h4>Closest Friend Match</h4>
-        <br>
-        <h5 id="userMatch"></h5>
-        <img id="userMatchImage" width="650" src="">
-      </div>
-      <div class="modal-footer">
-        <a href="/survey" class ="modal-action modal-close waves effect waves-green btn-flat">Would you like to try again?!</a>
-      </div>
-    </div>
-<script type ="text/JavaScript">
-  $(document).ready(function() {
 
-    $("#submit").on("click", function() {
-      event.preventDefault();
+    <footer class = "page-footer">
+        <div class="container">
+          <a href="/api/friends"><button class="btn btn-info btn-md">API Friends List</button></a>
+          <a href="https://github.com/KSolorio/FriendFinder"><button class ="btn btn-info btn-md">Git Hub Repo</button></a> 
+        </div>
+      </footer>
+
+    <!-- Modal -->
+    <div style="text-align:center;" id="resultsModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+    <!-- Modal Content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2>Your New Best Friend</h2>
+          </div>
+          <div class="modal-body">
+            <h3 id="matchName"></h3>
+            <img id="matchImage" src="https://images.pexels.com/photos/35646/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt"friend image">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>    
+    </div>
+
+    
+    <script type ="text/JavaScript">
+ 
+ $("#submit").on("click", function() {
+   event.preventDefault();
+   
+   function validateForm() {
+     var isValid = true;
+     $(".form-control").each(function() {
+       if ($(this).val() === "") {
+         isValid = false;
+        }
+      });
+      
+      $(".answerChosen").each(function() {
+        if ($(this).val() === ""){
+          isValid = false;
+        }
+      });
+      return isValid; 
+      
+    }
+    
+    if(validateForm()== true ) {
+      
       
       var userInput = {
-        name: $("#friendName").val().trim(),
-        photo: $("#photoLink").val().trim()
+        name: $("#name").val(),
+        photo: $("#photo").val(),
         scores: [
-          $("q1").val().trim(),
-          $("q2").val().trim(),
-          $("q3").val().trim(),
-          $("q4").val().trim(),
-          $("q5").val().trim(),
-          $("q6").val().trim(),
-          $("q7").val().trim(),
-          $("q8").val().trim(),
-          $("q9").val().trim(),
-          $("q10").val().trim()
+          $("#q1").val(),
+          $("#q2").val(),
+          $("#q3").val(),
+          $("#q4").val(),
+          $("#q5").val(),
+          $("#q6").val(),
+          $("#q7").val(),
+          $("#q8").val(),
+          $("#q9").val(),
+          $("#q10").val()
         ]
       };
-        //console.log("userInput: " + JSON.stringify(userInput));
-
-        $post("/api/friends", userInput)
-        .done(function(data) {
-
-          $("#userMatch").html(data.matchName);
-          $("#userMatchImage").attr("src", data.matchImage);
-
-          $("#modal1").modal("open");
-        })
-        
-    
-    })
-  })
-
-</script>
+      console.log("userInput: " + JSON.stringify(userInput));
+      
+      var currentURL = window.location.origin;
+      
+      $.post(currentURL + "/api/friends", userInput, function(data) {
+        console.log(data);
+        $("#matchName").text(data.name);
+        $("#matchImage").attr("src", data.photo);
+        //this will open the modal
+        $("#resultsModal").modal("toggle");
+      });
+      
+    } else {
+      alert("please fill out all fields before submitting")
+    }
+    return false;
+  });
+  </script>
   
 </body>
-</html>
+  
+  </html>

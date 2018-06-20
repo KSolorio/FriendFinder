@@ -15,10 +15,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // parse application/json
 app.use(bodyParser.json());
 // parse an HTML body into a string
-app.use(bodyParser.text({type: 'text/html'}))
+app.use(bodyParser.text());
 
-require(path.join(__dirname, "./app/routing/apiRoutes"))(app);
-require(path.join(__dirname, "./app/routing/htmlRoutes"))(app);
+
+require("./app/routing/apiRoutes")(app);
+require("./app/routing/htmlRoutes")(app);
 
 // Starts the server to begin listening
 // =============================================================

@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Friend Finder</title>
+    
+  <!-- Latest compiled and minified CSS & JS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+  <style>
+  .jumbotron {
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    color: white;
+    text-align: center;
+  }
+  .page-footer {
+    color: white;
+    text-align: center;
+  }
+  
+  </style>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
 <body>
 <div class="container">
   <div class="jumbotron">
-    <h1>Friend Finder :)</h1>
-      <a href="/survey"><button>survey button</button></a>
+    <h1 style="text-align:center;">Friend Finder :)</h1>
+    <br>
+    <h4>Take the survey below to find you new Best Friend</h4>
+    <br>
+      <div style="text-align:center;">
+        <a id="survey-button" href="/survey"><button class="btn btn-light btn-lg">survey button</button></a> 
+      </div>
   </div>
+
+<footer class = "page-footer">
+  <div class="container">
+    <a href="/api/friends"><button class="btn btn-info btn-md">API Friends List</button></a>
+    <a href="https://github.com/KSolorio/FriendFinder"><button class ="btn btn-info btn-md">Git Hub Repo</button></a> 
+  </div>
+</footer>
+
 </div>
 </body>
 </html>

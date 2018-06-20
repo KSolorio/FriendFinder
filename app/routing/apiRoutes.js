@@ -1,39 +1,53 @@
-var path = require("path");
 var friends = require("../data/friends.js");
+var path = require("path");
 
+
+//This will export API routes
 module.exports = function(app) {
     //list of all friends 
-   app.get("/api/friends", function(req, res) {
-     res.json(friends);
-   });
-   app.post("/api/friends", function(req, res) {
-     var userInput = req.body;
-      //console.log("userInput: " + JSON.stringify(userInput));
-     var userResponse = userInput.scores; 
-      //console.log("userResponse: " + JSON.stringify(userInput));
+  app.get("/api/friends", function(req, res) {
+    res.json(friends);
+  });
 
-      //best friend match
-      var matchName = "";
-      var matchImage = "";
-      var totalDiffernece = 1000;
+  app.post("/api/friends", function(req, res) {
+    
+    //best friend match
+    var bestMatch = {
+     name: "",
+     image: "",
+     friendDifference: 1000
+    };
+    
+    var userData = req.body;
+    var userName = userData.name;
+    var userPhoto = userData.photo;
+    var userScores = userData.scores; 
+
+    var totalDifference = 0;
+
+
 
       for (var i = 0; i < friends.length; i++) {
         
-        var diff = 0;
-        for (var k = 0; k < userResponse.length; k++)
-          diff += Math.abs(friends[i].scores[k] - userResponse[k]);
-      }
-        if (diff < totalDiffernece) {
-          //console.log("closest match found: " + diff);
-          //console.log("friend name: " + friends[i].name);
-          //console.log("friend image: " + friends[i].photo);
-          totalDifference = diff;
-          matchName = friends[i].name;
-          matchImage = friends[i].photo;
+        console.log(friends[i].name);
+        totalDifference = 0;
+
+        //loop through all the scores of each friend
+        for (var j = 0; j < friends[i].scores[j]; j++) {
+          
+          totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friends[i].scores[j]));
+      
+        if (totalDifference <= bestMatch.friendDifference) {
+          //console.log("closest match found: " + totalDiffernce);
+          
+          bestMatch.name = friends[i].name;
+          bestMatch.photo = friends[i].photo;
+          bestMatch.friendDifference = totalDifference;
         }
-    })
-    friends.push(userInput);
-
-    res.json({status: "ok", matchName: matchName, matchImage: matchImage})
-
- }
+      }
+    }
+    friends.push(userData);
+    console.log(bestMatch);
+    res.json(bestMatch)
+  });
+};
